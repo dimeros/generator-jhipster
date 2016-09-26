@@ -12,8 +12,6 @@
     <base href="/"/>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
-    <!-- bower:css -->
-    <!-- endinject -->
     <%_ if(useSass) { _%>
     <link rel="stylesheet" href="content/css/vendor.css">
     <%_ } _%>
@@ -96,7 +94,12 @@
     <script src="vendor/systemjs/dist/system.js"></script>
     <script src="system.config.js"></script>
     <script>
-        System.import('app').catch(function(err){ console.error(err); });
+        System.import('app').then(()=> {
+            System.import('vendor/bootstrap/dist/css/bootstrap.css!').then(() => {
+                 System.import('bower_components/angular-loading-bar/build/loading-bar.css!')
+                 .catch(function(err){ console.error(err)});
+            }).catch(function(err){ console.error(err); });
+        }).catch(function(err){ console.error(err); });
     </script>
 
 </body>
