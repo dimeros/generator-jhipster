@@ -53,12 +53,6 @@
         "assets/stylesheets/_bootstrap.scss"
       ]
     }
-    <%_ } else { _%>
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.css"
-      ]
-    }
     <%_ } _%>
   },
   "resolutions": {
