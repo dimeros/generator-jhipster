@@ -1,6 +1,7 @@
 import './header.<%= styleSheetExt %>';
 
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Translate } from 'react-jhipster';
 import {
   Navbar, Nav, NavItem, NavLink, NavbarToggler, NavbarBrand, Collapse,
@@ -25,6 +26,11 @@ export interface IHeaderProps {
   currentLocale: string;
   onLocaleChange: Function;
 }
+<%_ } else { _%>
+export interface IHeaderProps {
+  isAuthenticated: boolean;
+  currentLocale: string;
+}
 <%_ } _%>
 const BrandIcon = props => (
   <div {...props} className="brand-icon">
@@ -34,7 +40,7 @@ const BrandIcon = props => (
     />
   </div>
 );
-export class Header extends React.Component<<%if (enableTranslation) { %>IHeaderProps<% } else { %>{}<% } %>, { menuOpen: boolean }> {
+export class Header extends React.Component<IHeaderProps, { menuOpen: boolean }> {
   constructor(props) {
     super(props);
     this.state = {
@@ -173,4 +179,10 @@ export class Header extends React.Component<<%if (enableTranslation) { %>IHeader
   }
 }
 
-export default Header;
+const mapStateToProps = storeState => ({
+  isAuthenticated: storeState.authentication.isAuthenticated
+});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
